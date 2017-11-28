@@ -1,0 +1,31 @@
+{
+  "name": "alexa-date-converter",
+  "version": "1.0.0",
+  "description": "Alexa skill to convert Grogrian to Hijri date and vice versa",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goldytech/alexa-date-converter.git"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-source-map-support": "^1.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "serverless-webpack": "^4.1.0",
+    "webpack": "^3.8.1",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
+    "alexa-sdk": "^1.0.21",
+    "babel-runtime": "^6.26.0",
+    "source-map-support": "^0.5.0"
+  }
+}

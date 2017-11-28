@@ -1,0 +1,68 @@
+{
+  "intents": [{
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "GregorianToHijri",
+      "samples": [
+        "Convert {gDate} to Hijri",
+        "Get me Hijri date for {gDate}",
+        "What is Hijri date for {gDate}",
+        "What was Hijri date for {gDate}",
+        "{gDate} to Hijri"
+
+      ],
+      "slots": [{
+        "name": "gDate",
+        "type": "AMAZON.DATE",
+        "samples": [
+          "Convert {gDate} to Hijri",
+          "Get me Hijri date for {gDate}",
+          "What is Hijri date for {gDate}",
+          "What was Hijri date for {gDate}",
+          "{gDate} to Hijri"
+        ]
+      }]
+    }
+  ],
+  "prompts": [{
+    "id": "Elicit.Intent-GregorianToHijri.IntentSlot-gDate",
+    "promptVersion": "1.0",
+    "definitionVersion": "1.0",
+    "variations": [{
+        "type": "PlainText",
+        "value": "Tell me a Gregorian date that you want to convert to Hijri?"
+      },
+      {
+        "type": "PlainText",
+        "value": "Ask me any Gregorian date and I will convert that for you in Hijri?"
+      }
+    ]
+  }],
+  "dialog": {
+    "version": "1.0",
+    "intents": [{
+      "name": "GregorianToHijri",
+      "confirmationRequired": false,
+      "prompts": {},
+      "slots": [{
+        "name": "gDate",
+        "type": "AMAZON.DATE",
+        "elicitationRequired": true,
+        "confirmationRequired": false,
+        "prompts": {
+          "elicit": "Elicit.Intent-GregorianToHijri.IntentSlot-gDate"
+        }
+      }]
+    }]
+  }
+}
