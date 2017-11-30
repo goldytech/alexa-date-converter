@@ -17,20 +17,26 @@ const handlers = {
     this.emit(':responseReady')
   },
   'GregorianToHijri': async function () {
-    const dateSlotValue = this.event.request.intent.slots && this.event.request.intent.slots.gDate.value
-    console.log(dateSlotValue)
-    const calendar = new Date(dateSlotValue)
-    console.log(calendar.getDate().toString())
-    callDirectiveService(this.event)
-    const hijriDate = await getHijriFromGregorian(`${calendar.getDay()}-${calendar.getMonth()}-${calendar.getFullYear()}`)
-    if (hijriDate) {
-      console.log(hijriDate)
-      let speechOutput = `<p> For ${calendar.getDate().toString()}, Hijri date is ${hijriDate.hijriDay} of ${hijriDate.hijriMonth} ${hijriDate.hijriYear} </p>. The weekday is ${hijriDate.day}.`
-      console.log(speechOutput)
-      this.response.speak(speechOutput)
-      this.emit(':responseReady')
-    } else {
-      this.response.speak('Unable to process')
+    try {
+      const dateSlotValue = this.event.request.intent.slots && this.event.request.intent.slots.gDate.value
+      console.log(`The date slot value ${dateSlotValue}`)
+      const calendar = new Date(dateSlotValue)
+      console.log(`The slot value after converting to date and getting getdate and converting to string ${calendar.toDateString()}`)
+     // callDirectiveService(this.event)
+      const hijriDate = await getHijriFromGregorian(`${calendar.getDate()}-${calendar.getMonth() + 1}-${calendar.getFullYear()}`)
+      if (hijriDate) {
+        console.log(hijriDate)
+        let speechOutput = `<p> For ${calendar.toDateString()}, Hijri date is ${hijriDate.hijriDay} of ${hijriDate.hijriMonth} ${hijriDate.hijriYear} </p>The weekday is ${hijriDate.day}.`
+        console.log(speechOutput)
+        this.response.speak(speechOutput)
+        this.emit(':responseReady')
+      } else {
+        this.response.speak('Unable to process')
+        this.emit(':responseReady')
+      }
+    } catch (error) {
+      console.log(error)
+      this.response.speak(Messages.CONNECTERROR)
       this.emit(':responseReady')
     }
   },

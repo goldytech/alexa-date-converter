@@ -1,11 +1,13 @@
 const axios = require('axios')
 const R = require('ramda')
 const getHijriFromGregorian = async (gDate) => {
+  console.log(`the query string passed to api ${gDate}`)
  // let url = process.env.G_TO_H_URL
   let url = `https://api.aladhan.com/gToH?date=${gDate}`
   let results = await axios.get(url)
   let hijriDate = getHijriDateObject(results.data)
   console.log(hijriDate)
+  return hijriDate
 }
 
 const getHijriDateObject = (obj) => {
