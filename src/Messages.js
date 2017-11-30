@@ -1,4 +1,4 @@
-const WELCOME = '<p> Assalamalekum Wa Rahmatuallah Wa Barkatahu. </p> Welcome to Islamic Calendar'
+const WELCOME = '<p> Assalamalekum va Rahmatullah va Barkatahu. </p> Welcome to Islamic Calendar'
 
 const HELP = 'With Islamic Calendar, you can convert Gregorian date to Hijri date. For example, you could say Convert today to Hijri or first August Nineteen Seventy Five to Hijri. Now, which daTE do you want to convert ?'
 

@@ -1,8 +1,10 @@
 import Alexa from 'alexa-sdk'
 import Messages from './src/Messages'
+import getHijriFromGregorian from './src/api'
+import R from 'ramda'
 export const islamicCalendar = (event, context, callback) => {
   const alexa = Alexa.handler(event, context)
-  // alexa.appId = 'amzn1.ask.skill.01b222ea-fb1c-44b1-a3d1-333badf2ca2c'
+  alexa.appId = 'amzn1.ask.skill.82116f51-611b-4507-9b71-32b34b9af659'
   alexa.registerHandlers(handlers)
   alexa.execute()
 }
@@ -14,12 +16,23 @@ const handlers = {
     .listen(Messages.HELP)
     this.emit(':responseReady')
   },
-  'GregorianToHijri': function () {
+  'GregorianToHijri': async function () {
     const dateSlotValue = this.event.request.intent.slots && this.event.request.intent.slots.gDate.value
-    const calendar = dateSlotValue && (isNaN(Date.parse(dateSlotValue)) ? new Date() : new Date(dateSlotValue))
+    console.log(dateSlotValue)
+    const calendar = new Date(dateSlotValue)
     console.log(calendar.getDate().toString())
-    this.response.speak(calendar.getDate().toString())
-    this.emit(':responseReady')
+    callDirectiveService(this.event)
+    const hijriDate = await getHijriFromGregorian(`${calendar.getDay()}-${calendar.getMonth()}-${calendar.getFullYear()}`)
+    if (hijriDate) {
+      console.log(hijriDate)
+      let speechOutput = `<p> For ${calendar.getDate().toString()}, Hijri date is ${hijriDate.hijriDay} of ${hijriDate.hijriMonth} ${hijriDate.hijriYear} </p>. The weekday is ${hijriDate.day}.`
+      console.log(speechOutput)
+      this.response.speak(speechOutput)
+      this.emit(':responseReady')
+    } else {
+      this.response.speak('Unable to process')
+      this.emit(':responseReady')
+    }
   },
   'AMAZON.HelpIntent': function () {
     this.response.speak(Messages.HELP).listen(Messages.HELPREPROMPTTEXT)
@@ -32,5 +45,29 @@ const handlers = {
   'AMAZON.StopIntent': function () {
     this.response.speak(Messages.GOODBYE)
     this.emit(':responseReady')
+  },
+  'SessionEndedRequest': function () {
+    var speechOutput = ''
+    this.response.speak(speechOutput)
+    this.emit(':responseReady')
   }
+}
+function callDirectiveService (event) {
+  // Call Alexa Directive Service.
+  const ds = new Alexa.services.DirectiveService()
+  const requestId = event.request.requestId
+  console.log(`request id is ${requestId}`)
+  const endpoint = event.context.System.apiEndpoint
+  console.log(`endpoint  is ${endpoint}`)
+  const token = event.context.System.apiAccessToken
+  console.log(`token  is ${token
+  }`)
+  const directive = new Alexa.directives.VoicePlayerSpeakDirective(requestId, Messages.DIRECTIVESERVICEMESSAGE)
+  ds.enqueue(directive, endpoint, token)
+  .catch((err) => {
+    console.log(Messages.DIRECTIVEERRORMESSAGE + err)
+  })
+}
+const checkIfHijriDateIsNotNull = (hijriDate) => {
+  return R.compose(R.not(), R.isNil(hijriDate))
 }
