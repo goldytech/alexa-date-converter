@@ -22,7 +22,7 @@ const handlers = {
       console.log(`The date slot value ${dateSlotValue}`)
       const calendar = new Date(dateSlotValue)
       console.log(`The slot value after converting to date and getting getdate and converting to string ${calendar.toDateString()}`)
-     // callDirectiveService(this.event)
+      callDirectiveService(this.event)
       const hijriDate = await getHijriFromGregorian(`${calendar.getDate()}-${calendar.getMonth() + 1}-${calendar.getFullYear()}`)
       if (hijriDate) {
         console.log(hijriDate)
