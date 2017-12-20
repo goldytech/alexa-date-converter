@@ -1,10 +1,10 @@
-const WELCOME = '<p> Assalamalekum va Rahmatullah va Barkatahu. </p> Welcome to Islamic Calendar'
+const WELCOME = '<p> Assalamalekum. </p> Welcome to Islamic Calendar'
 
-const HELP = 'With Islamic Calendar, you can convert Gregorian date to Hijri date. For example, you could say Convert today to Hijri or first August Nineteen Seventy Five to Hijri. Now, which daTE do you want to convert ?'
+const HELP = 'With Islamic Calendar, you can convert Gregorian date to Hijri date. For example, you could say Convert today to Hijri or first August Nineteen Seventy Five to Hijri. Now, which date do you want to convert ?'
 
 const CONNECTERROR = 'There is a problem connecting to API at this time. Please try again later.'
 
-const HELPREPROMPTTEXT = 'What would you like to do Gregorian to Hijri or Hijri to Gregorian ?'
+const HELPREPROMPTTEXT = 'Tell me the Gregorian date that you want to convert to Hijri ?'
 
 const DIRECTIVESERVICEMESSAGE = 'Please wait...'
 

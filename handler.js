@@ -13,6 +13,7 @@ const handlers = {
   'LaunchRequest': function () {
     this.response
     .speak(Messages.WELCOME)
+    .speak(Messages.HELP)
     .listen(Messages.HELP)
     this.emit(':responseReady')
   },
